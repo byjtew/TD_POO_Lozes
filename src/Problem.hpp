@@ -13,7 +13,7 @@ class Problem {
    public:
     Problem(equation::Equation _eq,
             time_discretization::ITimeDiscretization* _time_ptr);
-    variable::Variable solve();
+    variable::Variable solve(std::string result_filename = "results.dat");
 
     equation::Equation getEquation();
 };

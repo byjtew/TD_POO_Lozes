@@ -16,7 +16,7 @@ Problem::Problem(equation::Equation _eq,
     time = _time_ptr;
 }
 
-variable::Variable Problem::solve() {
+variable::Variable Problem::solve(std::string result_filename) {
     variable::Variable variables(time);
     double _step = time->get_step();
     std::cout << "--- Solve problem ---" << std::endl;
@@ -27,7 +27,7 @@ variable::Variable Problem::solve() {
         std::cout << "--- compute equation at time: ---" << t << std::endl;
         getEquation().compute(t, variables);
     }
-    std::cout << "--- Problem solved: " << variables.size() << " results ---" << std::endl;
+    variables.print(result_filename);
     return variables;
 }
 
