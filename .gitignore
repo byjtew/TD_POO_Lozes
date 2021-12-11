@@ -1,5 +1,3 @@
 /.vscode
-/TD1_cmake.pdf
-/TD2_simulator_architecture.pdf
-/TD3_equation_and_solver.pdf
+*.pdf
 /build
