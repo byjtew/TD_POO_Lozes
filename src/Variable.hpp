@@ -6,6 +6,12 @@
 #include "TimeDiscretization.hpp"
 #include "unistd.h"
 
+// Defined by CMake [ DEFAULT: 1 ]
+// Usage for release: cmake <target> -DCMAKE_BUILD_TYPE=Release
+#if !defined(DEBUG_MODE)
+#define DEBUG_MODE 1
+#endif  // DEBUG_MODE
+
 namespace variable {
 
 class Variable {
@@ -34,6 +40,8 @@ class Variable {
     double operator()(size_t idx) const { return values[idx]; }
     double& operator()(size_t idx) { return values[idx]; }
 
+    void print(std::string filename = "results.dat");
+    
     time_discretization::ITimeDiscretization getTime() { return *time_ptr; }
 };
 
