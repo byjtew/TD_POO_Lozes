@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
 message(${CMAKE_BUILD_TYPE})
-if(CMAKE_BUILD_TYPE AND ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+if("$ENV{CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message("Release build")
     add_compile_definitions(DEBUG_MODE=0)
 else()
