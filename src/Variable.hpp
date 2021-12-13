@@ -40,6 +40,8 @@ class Variable {
     double operator()(size_t idx) const { return values[idx]; }
     double& operator()(size_t idx) { return values[idx]; }
 
+    double getLast() const {return values.back(); }
+
     void print(std::string filename = "results.dat") const;
     
     time_discretization::ITimeDiscretization getTime() const { return *time_ptr; }
