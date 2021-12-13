@@ -29,8 +29,9 @@ class Timer {
     }
 
    public:
-    Timer();
-    ~Timer();
+    Timer() {}
+    ~Timer() {}
+
     void start() { timepoints.first = get_current_time(); }
 
     void stop() { timepoints.second = get_current_time(); }
@@ -38,6 +39,7 @@ class Timer {
     size_t getStartTime() const { return chrono_pt_to_us(timepoints.first); }
     size_t getStopTime() const { return chrono_pt_to_us(timepoints.second); }
     size_t print() const { return getStopTime() - getStartTime(); }
+    double printInSeconds() const { return 1e-6*(getStopTime() - getStartTime()); }
 };
 
 }  // namespace timer
