@@ -15,7 +15,7 @@ Variable::Variable(time_discretization::ITimeDiscretization* _time_ptr) {
     values.resize(_time_ptr->get_nb_points());
 }
 
-void Variable::print(std::string filename) {
+void Variable::print(std::string filename) const {
     std::ofstream of(filename);
     size_t idx = 0;
     std::cout << std::fixed;
