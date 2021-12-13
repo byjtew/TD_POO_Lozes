@@ -22,6 +22,8 @@ class Variable {
     time_discretization::ITimeDiscretization* time_ptr;
 
    public:
+    Variable() {}
+    ~Variable() {}
     Variable(time_discretization::ITimeDiscretization* _time_ptr);
 
     std::vector<double>::iterator begin() { return values.begin(); }

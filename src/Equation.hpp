@@ -36,7 +36,7 @@ class Equation {
         Integrator::update(_variables, current_t, dt, f);
     }
 
-    std::function<double(double)> getFunction() { return f; }
+    std::function<double(double)> getFunction() const { return f; }
 };
 
 }  // namespace equation
