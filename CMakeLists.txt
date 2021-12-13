@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if(${CMAKE_BUILD_TYPE} && ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     message("Debug build")
     add_compile_definitions(DEBUG_MODE=1)
 else()
