@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
-message(${CMAKE_BUILD_TYPE})
-if("$ENV{CMAKE_BUILD_TYPE}" STREQUAL "Release")
+#cmake <target> -DCMAKE_BUILD_TYPE=Release
+if(${DCMAKE_BUILD_TYPE}|"Not specified" STREQUAL "Release")
     message("Release build")
     add_compile_definitions(DEBUG_MODE=0)
 else()
