@@ -41,7 +41,7 @@ class Equation {
         _variables(_t_initial) = f(_t_initial);
     }
 
-    template <class Integrator = equation::integrations::EulerIntegration>
+    template <class Integrator>
     void compute(double current_t, variable::Variable &_variables) {
         double dt = _variables.getTime().get_step();
         Integrator::update(_variables, current_t, dt, f);
