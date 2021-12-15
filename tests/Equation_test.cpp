@@ -9,6 +9,6 @@
 TEST(EquationTest, VariableLength) {
     equation::Equation eq([](double x) { return x; });
     time_discretization::UniformTimeDiscretization unif(0, 10, 100);
-    variable::Variable results = problem::Problem(eq, &unif).solve("equation_test.dat");
+    variable::Variable results = problem::Problem(eq, &unif).solve();
     ASSERT_EQ(results.size(), unif.get_nb_points());
 }
