@@ -13,7 +13,18 @@ class EulerIntegration {
     static void update(variable::Variable &_variables, double _current_t,
                        double _dt, std::function<double(double)> _f) {
         double prev_t = _current_t - _dt;
-        _variables(_current_t) = _f(_current_t - prev_t) + _dt * prev_t;
+        _variables(_current_t) = _f(prev_t) + _dt * prev_t;
+        // y(n+1) = y(n) + dt * t(n)
+    }
+};
+
+class RungeKuttaIntegration {
+   public:
+    static void update(variable::Variable &_variables, double _current_t,
+                       double _dt, std::function<double(double)> _f) {
+        double prev_t = _current_t - _dt;
+        _variables(_current_t) = _f(prev_t) + _dt * (prev_t+_dt/2);
+        // y(n+1) = y(n) + dt * f(t(n) + dt)
     }
 };
 
@@ -30,7 +41,7 @@ class Equation {
         _variables(_t_initial) = f(_t_initial);
     }
 
-    template <class Integrator = integrations::EulerIntegration>
+    template <class Integrator = equation::integrations::EulerIntegration>
     void compute(double current_t, variable::Variable &_variables) {
         double dt = _variables.getTime().get_step();
         Integrator::update(_variables, current_t, dt, f);

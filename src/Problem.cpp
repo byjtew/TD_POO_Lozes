@@ -18,23 +18,6 @@ Problem::Problem(equation::Equation _eq,
     time = _time_ptr;
 }
 
-variable::Variable Problem::solve() {
-    if (DEBUG_MODE) std::cout << "--- Solve problem ---" << std::endl;
-    variable::Variable variables(time);
-    double _step = time->get_step();
-    if (DEBUG_MODE)
-        std::cout << "--- compute equation initial condition ---" << std::endl;
-    getEquation().compute_initial_condition(time->get_start(), variables);
-    for (double t = time->get_start() + _step; t <= time->get_end();
-         t += _step) {
-        if (DEBUG_MODE)
-            std::cout << "--- compute equation at time: " << t << " ---"
-                      << std::endl;
-        getEquation().compute(t, variables);
-    }
-    return variables;
-}
-
 std::pair<variable::Variable, variable::Variable> Problem::solve_concurrent(
     equation::Equation equation_A, equation::Equation equation_B,
     time_discretization::ITimeDiscretization* time) {
