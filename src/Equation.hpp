@@ -1,8 +1,8 @@
+#pragma once
+
 #include <functional>
 
 #include "Variable.hpp"
-
-#pragma once
 
 namespace equation {
 
@@ -23,7 +23,7 @@ class RungeKuttaIntegration {
     static void update(variable::Variable &_variables, double _current_t,
                        double _dt, std::function<double(double)> _f) {
         double prev_t = _current_t - _dt;
-        _variables(_current_t) = _f(prev_t) + _dt * (prev_t+_dt/2);
+        _variables(_current_t) = _f(prev_t) + _dt * (prev_t + _dt / 2);
         // y(n+1) = y(n) + dt * f(t(n) + dt)
     }
 };
