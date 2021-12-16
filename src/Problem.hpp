@@ -27,13 +27,12 @@ class Problem {
             std::cout << "--- compute equation initial condition ---"
                       << std::endl;
         getEquation().compute_initial_condition(time->get_start(), variables);
-        for (double t = time->get_start() + _step; t <= time->get_end();
-             t += _step) {
+        std::for_each(time->begin(), time->end(), [this, &variables](auto& t) {
             if (DEBUG_MODE)
                 std::cout << "--- compute equation at time: " << t << " ---"
                           << std::endl;
             getEquation().compute<Integrator>(t, variables);
-        }
+        });
         return variables;
     }
 
@@ -53,14 +52,15 @@ class Problem {
 
         equation_A.compute_initial_condition(time->get_start(), results_A);
         equation_B.compute_initial_condition(time->get_start(), results_B);
-        for (double t = time->get_start() + _step; t <= time->get_end();
-             t += _step) {
-            if (DEBUG_MODE)
-                std::cout << "--- compute equations at time: " << t << " ---"
-                          << std::endl;
-            equation_A.compute<Integrator_A>(t, results_A);
-            equation_B.compute<Integrator_B>(t, results_B);
-        }
+        std::for_each(
+            time->begin(), time->end(),
+            [&equation_A, &equation_B, &results_A, &results_B](auto& t) {
+                if (DEBUG_MODE)
+                    std::cout << "--- compute equations at time: " << t
+                              << " ---" << std::endl;
+                equation_A.compute<Integrator_A>(t, results_A);
+                equation_B.compute<Integrator_B>(t, results_B);
+            });
         return std::pair<variable::Variable, variable::Variable>(results_A,
                                                                  results_B);
     }

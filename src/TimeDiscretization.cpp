@@ -3,7 +3,9 @@
 #include <math.h>
 #include <unistd.h>
 
+#include <algorithm>
 #include <iostream>
+#include <vector>
 
 namespace time_discretization {
 
@@ -18,20 +20,31 @@ UniformTimeDiscretization::UniformTimeDiscretization(double _start, double _end,
     else if (_nb_steps <= 0)
         throw std::invalid_argument("nb_steps <= 0");
 
-    start = _start;
-    end = _end;
-    nb_steps = _nb_steps;
+    double step = (_end - _start) / _nb_steps;
+    time_series.resize(_nb_steps + 1);
+    std::cout << "resizing with " << time_series.size() << " elements"
+              << std::endl;
+    for (size_t t = 0; t < time_series.size(); t++)
+        time_series[t] = _start + t * step;
+    std::cout << "resized with " << time_series.size() << " elements"
+              << std::endl;
 };
 
-double ITimeDiscretization::get_start() { return start; }
-double ITimeDiscretization::get_end() { return end; }
+double ITimeDiscretization::get_start() { return time_series.front(); }
+double ITimeDiscretization::get_end() { return time_series.back(); }
 double ITimeDiscretization::get_step() {
     return (get_end() - get_start()) / get_nb_points();
 }
-size_t ITimeDiscretization::get_nb_points() { return nb_steps; }
+size_t ITimeDiscretization::get_nb_points() { return time_series.size(); }
 
 size_t ITimeDiscretization::iteration(double t_n) {
-    return (size_t)std::round(get_nb_points() * t_n /
-                              (get_end() - get_start()));
+    double percent = (t_n - get_start()) / (get_end() - get_start());
+    auto begin_it_adjusted =
+        (time_series.begin() + percent * (time_series.size() - 1));
+
+    // The most it could possibly iterate is 2 elements
+    auto it = std::find(begin_it_adjusted, time_series.end(), t_n);
+
+    return it - time_series.begin();
 }
 }  // namespace time_discretization

@@ -12,7 +12,7 @@ namespace variable {
 
 Variable::Variable(time_discretization::ITimeDiscretization* _time_ptr) {
     time_ptr = _time_ptr;
-    values.resize(_time_ptr->get_nb_points()+1);
+    values.resize(_time_ptr->get_nb_points());
 }
 
 void Variable::print(std::string filename) const {

@@ -36,17 +36,23 @@ class Variable {
 
     size_t size() const { return values.size(); }
 
-    double operator()(double t_n) const { return values[time_ptr->iteration(t_n)]; }
-    double& operator()(double t_n) { return values[time_ptr->iteration(t_n)]; }
+    double operator()(double t_n) const {
+        return values[time_ptr->iteration(t_n)];
+    }
+    double& operator()(double t_n) {
+        return values[time_ptr->iteration(t_n)];
+    }
 
     double operator()(size_t idx) const { return values[idx]; }
     double& operator()(size_t idx) { return values[idx]; }
 
-    double getLast() const {return values.back(); }
+    double getLast() const { return values.back(); }
 
     void print(std::string filename = "results.dat") const;
-    
-    time_discretization::ITimeDiscretization getTime() const { return *time_ptr; }
+
+    time_discretization::ITimeDiscretization getTime() const {
+        return *time_ptr;
+    }
 };
 
 }  // namespace variable
