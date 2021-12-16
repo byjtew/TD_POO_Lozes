@@ -20,14 +20,10 @@ UniformTimeDiscretization::UniformTimeDiscretization(double _start, double _end,
     else if (_nb_steps <= 0)
         throw std::invalid_argument("nb_steps <= 0");
 
-    double step = (_end - _start) / _nb_steps;
-    time_series.resize(_nb_steps + 1);
-    std::cout << "resizing with " << time_series.size() << " elements"
-              << std::endl;
+    double step = (_end - _start) / (_nb_steps-1);
+    time_series.resize(_nb_steps);
     for (size_t t = 0; t < time_series.size(); t++)
         time_series[t] = _start + t * step;
-    std::cout << "resized with " << time_series.size() << " elements"
-              << std::endl;
 };
 
 double ITimeDiscretization::get_start() { return time_series.front(); }
