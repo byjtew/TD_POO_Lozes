@@ -1,7 +1,8 @@
 #pragma once
 
-#include "unistd.h"
 #include <vector>
+
+#include "unistd.h"
 
 namespace time_discretization {
 class ITimeDiscretization {
@@ -9,10 +10,10 @@ class ITimeDiscretization {
     std::vector<double> time_series{};
 
    public:
-    double get_start();
-    double get_end();
-    double get_step();
-    size_t get_nb_points();
+    virtual double get_start();
+    virtual double get_end();
+    virtual double get_step();
+    virtual size_t get_nb_points();
 
     std::vector<double>::iterator begin() { return time_series.begin(); }
     std::vector<double>::iterator end() { return time_series.end(); }
@@ -24,7 +25,7 @@ class ITimeDiscretization {
         return time_series.cend();
     }
 
-    size_t iteration(double t_n);
+    virtual size_t iteration(double t_n);
 };
 
 class UniformTimeDiscretization : public ITimeDiscretization {
